@@ -3,7 +3,7 @@
         {
             "name": "BEW 2.5 - Go",
             "days": "MWF",
-            "time": "3:30PM",
+            "time": ["3:30PM", "5:30PM"],
             "attendCode": true,
             "zoom": "https://make.sc/dani-zoom",
             "links": [
@@ -16,13 +16,26 @@
         {
             "name": "BEW 1.3 - Node",
             "days": "MWF",
-            "time": "9:30AM",
+            "time": ["9:30AM", "12:30PM"],
             "attendCode": true,
             "zoom": "https://make.sc/braus-zoom",
             "links": [
                 {
                     "label": "repo",
                     "url": "https://make.sc/bew1.3"
+                }
+            ]
+        },
+        {
+            "name": "Art & The Sacred",
+            "days": "M",
+            "time": ["1:30PM", "3:30PM"],
+            "attendCode": false,
+            "zoom": "https://us02web.zoom.us/j/87609722883?pwd=dzVOYlJZc0E1Yncwc0gvTytxWk1qUT09",
+            "links": [
+                {
+                    "label": "tracker",
+                    "url": "https://docs.google.com/spreadsheets/d/13St6RaJ-mjF29Lt8AMibE2dUgiqiYikr-z2o_bi8g6A"
                 }
             ]
         },
@@ -36,19 +49,6 @@
                 {
                     "label": "repo",
                     "url": "https://make.sc/spd1.5"
-                }
-            ]
-        },
-        {
-            "name": "Art & The Sacred",
-            "days": "M",
-            "time": "1:30PM",
-            "attendCode": false,
-            "zoom": "https://us02web.zoom.us/j/87609722883?pwd=dzVOYlJZc0E1Yncwc0gvTytxWk1qUT09",
-            "links": [
-                {
-                    "label": "tracker",
-                    "url": "https://docs.google.com/spreadsheets/d/13St6RaJ-mjF29Lt8AMibE2dUgiqiYikr-z2o_bi8g6A"
                 }
             ]
         }

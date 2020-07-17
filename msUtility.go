@@ -10,6 +10,7 @@ import (
 	"strings"
 	"strconv"
 	"os/exec"
+	"time"
 )
 
 func main() {
@@ -18,9 +19,8 @@ func main() {
 
 	for _, course := range courses.Courses {
 		time := hhToHH(course.Time[0])
-
 		for i := 0; i < len(course.Days); i++ {
-			switch string(course.Days[i]) {
+			switch strings.ToUpper(string(course.Days[i])) {
 				case "M":
 					s.Every(1).Monday().At(time).Do(course.classStarting)
 				case "T":
@@ -34,6 +34,8 @@ func main() {
 			}
 		}
 	}
+	printFullSchedule(courses)
+	printDaySchedule(courses, time.Now().Weekday().String())
 	<- s.Start()
 }
 
@@ -93,22 +95,62 @@ func attend(course Course) {
 }
 
 func printLinks(course Course) {
-	for link in course.Links {
-		
+	fmt.Printf("Links for %s:\n", course.Name)
+	for _, link := range course.Links {
+		fmt.Printf("\t%s: %s\n", link.Label, link.Url)
 	}
 }
 
-func printSchedule(courses Courses) {
+func prettyDays(days string) []string {
+	dayKey := map[string] string {
+	    "M": "Monday", "m": "Mon",
+	    "T": "Tuesday", "t": "Tues",
+	    "W": "Wednesday", "w": "Wed",
+	    "R": "Thursday", "r": "Thur",
+	    "F": "Friday", "f": "Fri",
+	}
+	var prettyDays []string
+	for i := 0; i < len(days); i++ {
+		prettyDays = append(prettyDays, dayKey[string(days[i])])
+	}
+	return prettyDays
+}
+
+func printFullSchedule(courses Courses) {
 	t := table.NewWriter()
     t.SetOutputMirror(os.Stdout)
-    t.AppendHeader(table.Row{"#", "First Name", "Last Name", "Salary"})
-    t.AppendRows([]table.Row{
-        {1, "Arya", "Stark", 3000},
-        {20, "Jon", "Snow", 2000, "You know nothing, Jon Snow!"},
-    })
-    t.AppendSeparator()
-    t.AppendRow([]interface{}{300, "Tyrion", "Lannister", 5000})
-    t.AppendFooter(table.Row{"", "", "Total", 10000})
+    t.AppendHeader(table.Row{"Course", "Day(s)", "Time"})
+	for _, course := range courses.Courses {
+	    t.AppendRow([]interface{}{
+			course.Name,
+			strings.Join(prettyDays(strings.ToLower(course.Days)), ", "),
+			strings.Join(course.Time, " - "),
+		})
+	}
+	t.SetStyle(table.StyleLight)
+    t.Render()
+}
+
+func printDaySchedule(courses Courses, day string) {
+	dayKey := map[string] string {
+	    "Monday": "m",
+	    "Tuesday": "t",
+	    "Wednesday": "w",
+	    "Thursday": "r",
+	    "Friday": "f",
+	}
+	t := table.NewWriter()
+    t.SetOutputMirror(os.Stdout)
+	t.SetTitle(fmt.Sprintf("%s Schedule", day))
+	for _, course := range courses.Courses {
+		if strings.Contains(strings.ToLower(course.Days), dayKey[day]) {
+			t.AppendRow([]interface{}{
+				course.Name,
+				strings.Join(course.Time, " - "),
+			})
+		}
+	}
+	t.SetStyle(table.StyleLight)
     t.Render()
 }
 

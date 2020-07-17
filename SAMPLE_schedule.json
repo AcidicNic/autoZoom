@@ -1,0 +1,24 @@
+{
+    "courses": [
+        {
+            "name": "",
+            "days": "",
+            "time": ["", ""],
+            "attendCode": true/false,
+            "zoom": "https://",
+            "links": [
+                {
+                    "label": "some class link",
+                    "url": "https://"
+                },
+                {
+                    "label": "another class link",
+                    "url": "https://"
+                }
+            ]
+        },
+        {
+            ...
+        }
+    ]
+}

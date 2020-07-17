@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/jasonlvhit/gocron"
-	"github.com/jedib0t/go-pretty/table"
 	"encoding/json"
 	"io/ioutil"
 	"os"
@@ -11,9 +9,13 @@ import (
 	"strconv"
 	"os/exec"
 	"time"
+
+	"github.com/jasonlvhit/gocron"
+	"github.com/jedib0t/go-pretty/table"
 )
 
 func main() {
+	cls()
 	courses := getCoursesJson("schedule.json")
 	s := gocron.NewScheduler()
 
@@ -62,7 +64,12 @@ func (course Course) classStarting() {
 	if course.AttendCode {
 		attend(course)
 	}
+
+	courses := getCoursesJson("schedule.json")
+	cls()
 	printLinks(course)
+	printFullSchedule(courses)
+	printDaySchedule(courses, time.Now().Weekday().String())
 }
 
 func openZoom(course Course) {
@@ -87,9 +94,9 @@ func attend(course Course) {
 	var code string
 	fmt.Scanf("%s", &code)
 	if strings.ToLower(code) != "n" && code != "" {
-		attendClass := exec.Command("open", "https://make.sc/attend/" + code)
+		attendClass := exec.Command("open", "https://www.makeschool.com/attend/" + code)
 		err := attendClass.Run()
-		checkErr(err, fmt.Sprintf("Error while opening: 'https://make.sc/attend/%s/'\n",
+		checkErr(err, fmt.Sprintf("Error while opening: 'https://www.makeschool.com/attend/%s/'\n",
 			code))
 	}
 }
@@ -99,6 +106,7 @@ func printLinks(course Course) {
 	for _, link := range course.Links {
 		fmt.Printf("\t%s: %s\n", link.Label, link.Url)
 	}
+	fmt.Println()
 }
 
 func prettyDays(days string) []string {
@@ -185,6 +193,13 @@ func hhToHH(time string) string {
 		return strconv.Itoa(hr+12) + time[2:len(time)-2]
 	}
 	return time
+}
+
+func cls() {
+	cls := exec.Command("clear")
+	cls.Stdout = os.Stdout
+	err := cls.Run()
+	checkErr(err, "Error while running cmd: 'clear'\n")
 }
 
 func checkErr(err error, msg string) {

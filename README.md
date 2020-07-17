@@ -4,6 +4,8 @@
 
 Easily join your zoom classes and see your schedule.
 
+[A video demo!](https://www.youtube.com/watch?v=J8eeF-AAvSw)
+
 
 ## Getting Started
 ```bash

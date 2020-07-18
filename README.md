@@ -27,7 +27,7 @@ schedule.json is where all of your course data will be pulled from. You must set
 **_If you have any issues with your json file use this free online [JSON validator](https://jsonlint.com/)!_**
 
 
-#### Basic Structure
+#### Example schedule.json
 ```json
 {
     "courses": [
@@ -54,15 +54,18 @@ schedule.json is where all of your course data will be pulled from. You must set
     ]
 }
 ```
+
+### How To Create Your Schedule File
+
 - **"courses"**: *(list)* A list of JSON  objects containing the following:
     - **"name"**: *(string)* Whatever you'd like this course to be called.
-    - **"days"**: *(string)* Any combination of "MTWRF", case doesn't matter.
+    - **"days"**: *(string)* Any combination of "MTWRF", this is case insensitive.
         - M = Monday
         - T = Tuesday
         - W = Wednesday
         - R = Thursday
         - F = Friday
-    - **"time"**: *(list of 2 strings)* The first is the start time of the course, the second is the end time.
+    - **"time"**: *(list of 2 strings)* The first is the start time of the course, the second is the end time. This can be in 24hr format (13:30) or 12hr (1:30PM)
     - **"attendCode"**: *(bool)* Does this course use attendance codes? (true/false)
     - **"zoom"**: *(string)* URL to the Zoom room for the course.
     - **"links"**: *(list)* [Optional] A list of links you want displayed when the course starts.

@@ -9,15 +9,22 @@ Easily join your zoom classes and see your schedule.
 
 ## Getting Started
 ```bash
-git clone https://github.com/AcidicNic/autoZoom.git
-cd autoZoom
+$ git clone https://github.com/AcidicNic/autoZoom.git
+$ cd autoZoom
+$ go install
 ```
+
+- Make sure you have GO installed and GOPATH properly configured!
 
 - Setup your .schedule.json file before proceeding! (see [.schedule.json setup](#schedule-setup) below)
 
 ```bash
-go run main.go
+$ autoZoom
 ```
+
+- You can now keep this running in a terminal and your Zoom classes will open when it's time.
+
+- (ctrl + C) to exit.
 
 
 ## Schedule Setup

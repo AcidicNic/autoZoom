@@ -1,6 +1,6 @@
 # MS Utility
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/acidicnic/msutility)](https://goreportcard.com/report/github.com/acidicnic/msutility)
+[![Go Report Card](https://goreportcard.com/badge/github.com/acidicnic/autoZoom)](https://goreportcard.com/report/github.com/acidicnic/autoZoom)
 
 Easily join your zoom classes and see your schedule.
 
@@ -9,14 +9,14 @@ Easily join your zoom classes and see your schedule.
 
 ## Getting Started
 ```bash
-git clone https://github.com/AcidicNic/msutility.git
-cd msutility
+git clone https://github.com/AcidicNic/autoZoom.git
+cd autoZoom
 ```
 
 - Setup your schedule.json file before proceeding! (see [schedule.json setup](#schedule-setup) below)
 
 ```bash
-go run msutility.go
+go run main.go
 ```
 
 
@@ -59,7 +59,7 @@ schedule.json is where all of your course data will be pulled from. You must set
 
 - **"courses"**: *(list)* A list of JSON  objects containing the following:
     - **"name"**: *(string)* Whatever you'd like this course to be called.
-    - **"days"**: *(string)* Any combination of "MTWRF", this is case insensitive.
+    - **"days"**: *(string)* Any combination of "MTWRF", this is not case sensitive.
         - M = Monday
         - T = Tuesday
         - W = Wednesday
@@ -67,6 +67,7 @@ schedule.json is where all of your course data will be pulled from. You must set
         - F = Friday
     - **"time"**: *(list of 2 strings)* The first is the start time of the course, the second is the end time. This can be in 24hr format (13:30) or 12hr (1:30PM)
     - **"attendCode"**: *(bool)* Does this course use attendance codes? (true/false)
+    - **"autoZoom"**: *(bool)* Do you want zoom links to automatically open? (true/false)
     - **"zoom"**: *(string)* URL to the Zoom room for the course.
     - **"links"**: *(list)* [Optional] A list of links you want displayed when the course starts.
         - **"label"**: *(string)* Whatever you'd like this link to be called.

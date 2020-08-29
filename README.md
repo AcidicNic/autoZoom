@@ -14,7 +14,7 @@ $ cd autoZoom
 $ go install
 ```
 
-- Make sure you have GO installed and GOPATH properly configured!
+- Make sure you have properly [installed GO](https://golang.org/doc/install) and [configured your GOPATH](https://github.com/golang/go/wiki/SettingGOPATH)!
 
 - Setup your .schedule.json file before proceeding! (see [.schedule.json setup](#schedule-setup) below)
 
@@ -44,7 +44,7 @@ It should be located in your home directory!
             "name": "Course Name",
             "days": "mw",
             "time": ["9:00AM", "11:30AM"],
-            "attendCode": true,
+            "attendCode": false,
             "autoZoom": true,
             "zoom": "https://URL-TO-ZOOM/",
             "links": [
@@ -76,8 +76,8 @@ It should be located in your home directory!
         - R = Thursday
         - F = Friday
     - **"time"**: *(list of 2 strings)* The first is the start time of the course, the second is the end time. This can be in 24hr format (13:30) or 12hr (1:30PM)
-    - **"attendCode"**: *(bool)* Does this course use attendance codes? This is only for Make School students! (true/false)
-    - **"autoZoom"**: *(bool)* Do you want zoom links to automatically open? (true/false)
+    - **"attendCode"**: *(bool)* (true/false) This course uses attendance codes. __This is only for Make School students!__
+    - **"autoZoom"**: *(bool)* (true/false) Zoom links will open automatically
     - **"zoom"**: *(string)* URL to the Zoom room for the course.
     - **"links"**: *(list)* [Optional] A list of links you want displayed when the course starts.
         - **"label"**: *(string)* Whatever you'd like this link to be called.

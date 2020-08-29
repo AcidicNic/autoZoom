@@ -162,7 +162,7 @@ func printFullSchedule(courses Courses) {
 }
 
 func printDaySchedule(courses Courses, day string) {
-	// Prints schedule table for each course in courses occuring on day
+	// Prints schedule table for each course in courses occurring on day
 	dayKey := map[string] string {
 	    "Monday": "m",
 	    "Tuesday": "t",

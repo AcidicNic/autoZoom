@@ -18,7 +18,7 @@ $ go install
 
 - Make sure you have properly [installed GO](https://golang.org/doc/install) and [configured your GOPATH](https://github.com/golang/go/wiki/SettingGOPATH)!
 
-- Setup your .schedule.json file before proceeding! (see [.schedule.json setup](#schedule-setup) below)
+- Setup your schedule.json file before proceeding! (see [schedule.json setup](#schedule-setup) below)
 
 ```bash
 $ autoZoom
@@ -29,16 +29,21 @@ $ autoZoom
 - (ctrl + C) to exit.
 
 
-## Schedule Setup
+## Schedule Setup (OSX Only)
 
-.schedule.json is where all of your course data will be pulled from. You must set this up before using autoZoom!
+schedule.json is where all of your course data will be pulled from. You must set this up before using autoZoom!
 
-It should be located in your home directory!
+Create a folder called .autoZoom in your home directory, then put your schedule.json file inside ~/.autoZoom
+
+```bash
+$ mkdir ~/.autoZoom
+$ touch ~/.autoZoom/schedule.json
+```
 
 **_If you have any issues with your json file use this free online [JSON validator](https://jsonlint.com/)!_**
 
 
-#### Example .schedule.json
+#### Example schedule.json
 ```json
 {
     "courses": [

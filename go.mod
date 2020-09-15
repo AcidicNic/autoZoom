@@ -12,7 +12,9 @@ require (
 	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/mitchellh/mapstructure v1.3.3 // indirect
 	go.mongodb.org/mongo-driver v1.4.0 // indirect
+	golang.org/x/net v0.0.0-20200904194848-62affa334b73
+	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43
 	golang.org/x/sys v0.0.0-20200915084602-288bc346aa39 // indirect
-	google.golang.org/api v0.32.0 // indirect
+	google.golang.org/api v0.32.0
 	google.golang.org/grpc v1.32.0 // indirect
 )

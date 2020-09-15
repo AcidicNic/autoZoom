@@ -11,14 +11,20 @@ import (
 	"time"
 	"os/user"
 	"path/filepath"
+	"flag"
+	"io"
+	"net/http"
 
 	"github.com/jasonlvhit/gocron"
 	"github.com/jedib0t/go-pretty/table"
 )
 
 func main() {
+	mainFolderName := flag.String("dir", "/.autoZoom", "The folder that stores your autoZoom data relative to your home directory. (Ex. \".autoZoom\" will direct to ~/.autoZoom)")
+    flag.Parse()
+
 	cls()
-	courses := getCoursesJson(".schedule.json")
+	courses := getCoursesJson(*mainFolderName)
 	s := gocron.NewScheduler()
 
 	for _, course := range courses.Courses {
@@ -185,21 +191,55 @@ func printDaySchedule(courses Courses, day string) {
     t.Render()
 }
 
-func getCoursesJson(jsonFilename string) Courses {
-	usr, _ := user.Current()
-	dir := usr.HomeDir
+func createScheduleDir(mainDir string, jsonDir string) {
+	fmt.Printf("... Creating %s ...\n\n", jsonDir)
+
+	// Creating mainDir folder in home directory
+	err := os.MkdirAll(mainDir, 0755)
+	checkErr(err, fmt.Sprintf("Error while creating directory: %s", mainDir))
+
+	// Creating empty schedule.json file
+	scheduleDir, err := os.Create(jsonDir)
+	checkErr(err, "Error while creating schedule.json")
+	defer scheduleDir.Close()
+
+	// Download and save sample schedule.json
+	resp, err := http.Get("https://raw.githubusercontent.com/AcidicNic/autoZoom/master/SAMPLE_schedule.json")
+	checkErr(err, "Error while downloading sample schedule.json")
+	defer resp.Body.Close()
+	_, err = io.Copy(scheduleDir, resp.Body)
+	checkErr(err, "Error while saving sample schedule.json")
+
+	fmt.Printf("Setup Complete! Here are your next steps:\n")
+	fmt.Printf("\t1. Navigate to %s\n\t2. Fill out and save your schedule.json file\n\t3. Run AutoZoom again!\n\n", jsonDir)
+	fmt.Printf("~ Want help creating your schedule.json?  Read the docs! ~\n   https://github.com/AcidicNic/autoZoom#schedule-setup\n")
+	os.Exit(1)
+}
+
+func getCoursesJson(mainFolderName string) Courses {
+	usr, err := user.Current()
+	checkErr(err, "Error while getting current user")
+
+	mainDir := filepath.Join(usr.HomeDir, mainFolderName)
+	jsonFilename := "schedule.json"
+	jsonDir := filepath.Join(mainDir, jsonFilename)
+
+	// Checking if mainDir/schedule.json exists
+	if _, err := os.Stat(jsonDir); os.IsNotExist(err) {
+		createScheduleDir(mainDir, jsonDir)
+	}
 
 	// Opens JSON file at jsonFilename
-	scheduleJson, err := os.Open(filepath.Join(dir, jsonFilename))
-    checkErr(err, fmt.Sprintf("Error while opening file: %s/%s", dir, jsonFilename))
+	scheduleJson, err := os.Open(jsonDir)
+    checkErr(err, fmt.Sprintf("Error while opening file: %s", jsonDir))
 	// Reads JSON data into bytes
 	scheduleByte, err := ioutil.ReadAll(scheduleJson)
-	checkErr(err, fmt.Sprintf("Error while reading file: %s", jsonFilename))
+	checkErr(err, fmt.Sprintf("Error while reading file: %s", jsonDir))
 	// Outputs a Courses object
 	// Courses is a stuct that holds an array of Course objects
 	var courses Courses
 	err = json.Unmarshal(scheduleByte, &courses)
-	checkErr(err, fmt.Sprintf("Error while parsing JSON file: %s", jsonFilename))
+	checkErr(err, fmt.Sprintf("Error while parsing JSON file: %s", jsonDir))
 	return courses
 }
 

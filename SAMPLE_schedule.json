@@ -1,8 +1,8 @@
 ********************************************************************************
 DELETE THIS:
     1. Fill this out with all your courses!
-    2. Move this to your home directory and rename it to ".schedule.json"
-    3. It's path should be /Users/yourName/.schedule.json (for OSX)
+    2. Move this to your home directory and rename it to "schedule.json"
+    3. It's path should be /Users/yourName/.autoZoom/schedule.json (for OSX)
 ********************************************************************************
 {
     "courses": [

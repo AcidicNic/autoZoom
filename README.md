@@ -1,6 +1,8 @@
 # Auto Zoom
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/acidicnic/autoZoom)](https://goreportcard.com/report/github.com/acidicnic/autoZoom)
+[![WTFPL](http://www.wtfpl.net/wp-content/uploads/2012/12/wtfpl-badge-4.png)](http://www.wtfpl.net/)
+
 
 Easily join your zoom classes and see your schedule.
 
